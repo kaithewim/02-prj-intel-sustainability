@@ -1,1 +1,315 @@
-/* Add your CSS here */
+/* Base page setup */
+:root {
+	--ink: #0a1a2b;
+	--muted: #4c5b6b;
+	--brand: #0f6fff;
+	--brand-dark: #0a3f9f;
+	--card: #ffffff;
+	--card-collapsed: 110px;
+	--line: rgba(10, 26, 43, 0.15);
+	--bg: #f5f7fb;
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: "Space Grotesk", sans-serif;
+	color: var(--ink);
+	background:
+		radial-gradient(circle at 10% 10%, rgba(15, 111, 255, 0.12), transparent 40%),
+		radial-gradient(circle at 90% 20%, rgba(0, 173, 239, 0.12), transparent 45%),
+		var(--bg);
+	line-height: 1.6;
+}
+
+img {
+	max-width: 100%;
+	display: block;
+}
+
+/* Hero section */
+.hero {
+	padding: 36px 20px 28px;
+	text-align: center;
+	position: relative;
+	overflow: hidden;
+	background: linear-gradient(135deg, #0068b5 0%, #0071c5 50%, #00a3e0 100%);
+}
+
+/* Intel-inspired decorative accents */
+.hero::before {
+	content: "";
+	position: absolute;
+	top: -50%;
+	right: -10%;
+	width: 600px;
+	height: 600px;
+	background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent 70%);
+	border-radius: 50%;
+	pointer-events: none;
+}
+
+.hero::after {
+	content: "";
+	position: absolute;
+	bottom: -30%;
+	left: -5%;
+	width: 500px;
+	height: 500px;
+	background: radial-gradient(circle, rgba(255, 255, 255, 0.08), transparent 70%);
+	border-radius: 50%;
+	pointer-events: none;
+}
+
+.hero-content {
+	max-width: 880px;
+	margin: 0 auto;
+	position: relative;
+	z-index: 1;
+}
+
+.hero-logo {
+	width: 120px;
+	margin: 0 auto 16px;
+	padding: 10px 14px;
+	background: linear-gradient(135deg, #0068b5, #00a3e0);
+	border-radius: 12px;
+	box-shadow: 0 10px 20px rgba(0, 104, 181, 0.25);
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hero-logo:hover {
+	transform: translateY(-4px);
+	box-shadow: 0 16px 40px rgba(0, 104, 181, 0.35);
+}
+
+.hero h1 {
+	font-size: clamp(2.2rem, 5.5vw, 3.8rem);
+	font-weight: 700;
+	margin-bottom: 16px;
+	color: #ffffff;
+	text-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+	letter-spacing: -0.02em;
+	white-space: nowrap;
+}
+
+.hero p {
+	color: rgba(255, 255, 255, 0.95);
+	font-size: 1.15rem;
+	max-width: 680px;
+	margin: 0 auto;
+	line-height: 1.7;
+	text-shadow: 0 1px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Timeline layout */
+.timeline {
+	position: relative;
+	max-width: 1100px;
+	margin: 0 auto;
+	padding: 28px 20px 64px;
+}
+
+/* The center line */
+.timeline::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 50%;
+	width: 2px;
+	background: var(--line);
+	transform: translateX(-50%);
+}
+
+.timeline-item {
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+	gap: 32px;
+	padding: 22px 0;
+}
+
+/* Alternate cards left/right */
+.timeline-item:nth-child(odd) {
+	flex-direction: row-reverse;
+}
+
+.timeline-dot {
+	position: absolute;
+	top: 32px;
+	left: 50%;
+	width: 14px;
+	height: 14px;
+	background: var(--brand);
+	border: 3px solid #ffffff;
+	border-radius: 50%;
+	transform: translate(-50%, -50%);
+	box-shadow: 0 0 0 6px rgba(15, 111, 255, 0.15);
+}
+
+.timeline-card {
+	width: calc(50% - 40px);
+	max-width: 480px;
+	background: var(--card);
+	border: 1px solid rgba(15, 111, 255, 0.12);
+	border-radius: 16px;
+	padding: 20px 22px;
+	position: relative;
+	overflow: hidden;
+	box-shadow: 0 14px 30px rgba(10, 26, 43, 0.08);
+	/* Visually clip to the header height without changing layout */
+	clip-path: inset(0 0 calc(100% - var(--card-collapsed)) 0 round 16px);
+	transition: clip-path 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+/* Soft image background per card */
+.timeline-card::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background-image:
+		linear-gradient(135deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.35)),
+		var(--card-image);
+	background-size: cover;
+	background-position: center;
+	opacity: 0.5;
+	z-index: 0;
+}
+
+.timeline-card > * {
+	position: relative;
+	z-index: 1;
+}
+
+.timeline-card h2 {
+	font-size: 1.5rem;
+	color: var(--brand-dark);
+}
+
+.timeline-card h3 {
+	margin-top: 4px;
+	margin-bottom: 8px;
+	font-size: 1.1rem;
+}
+
+.timeline-card p {
+	color: var(--muted);
+	opacity: 0;
+	transform: translateY(6px);
+	transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+/* Hover effect */
+.timeline-card:hover {
+	transform: translateY(-6px) scale(1.03);
+	box-shadow: 0 18px 36px rgba(10, 26, 43, 0.12);
+	border-color: rgba(15, 111, 255, 0.35);
+	clip-path: inset(0 0 0 0 round 16px);
+	z-index: 2;
+}
+
+.timeline-card:hover p {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.timeline-item:nth-child(1) .timeline-card {
+	--card-image: url("img/01%20Intel_old.svg");
+}
+
+.timeline-item:nth-child(1) .timeline-card::before {
+	background-size: 73%;
+	background-repeat: no-repeat;
+}
+
+.timeline-item:nth-child(2) .timeline-card {
+	--card-image: url("img/02%20Intel_C4004.jpg");
+}
+
+.timeline-item:nth-child(2) .timeline-card::before {
+	background-position: 10 0, calc(50% + 100px);
+}
+
+.timeline-item:nth-child(3) .timeline-card {
+	--card-image: url("img/03%20Intel_8060.jpg");
+}
+
+.timeline-item:nth-child(3) .timeline-card::before {
+	background-position: 0 0, calc(50%);
+}
+
+.timeline-item:nth-child(4) .timeline-card {
+	--card-image: url("img/04%20KL_Intel_i386DX.jpg");
+}
+
+.timeline-item:nth-child(4) .timeline-card::before {
+	background-size: 50%;
+	background-repeat: no-repeat;
+}
+
+.timeline-item:nth-child(5) .timeline-card {
+	--card-image: url("img/05%20intel_ghg.jpg");
+}
+
+.timeline-item:nth-child(6) .timeline-card {
+	--card-image: url("img/06%20intel_rise.webp");
+}
+
+.timeline-item:nth-child(7) .timeline-card {
+	--card-image: url("img/07%20intel_netzero.jpg");
+}
+
+.timeline-item:nth-child(7) .timeline-card::before {
+	background-position: 0 0, center calc(50% - 5px);
+}
+
+.timeline-item:nth-child(8) .timeline-card {
+	--card-image: url("img/08%20intel_energy.jpg");
+}
+
+.timeline-item:nth-child(8) .timeline-card::before {
+	background-position: 0 0, center calc(50% + 13px);
+}
+
+.timeline-item:nth-child(9) .timeline-card {
+	--card-image: url("img/09%20newsroom-sustainability-summit.jpg");
+}
+
+.timeline-hint {
+	text-align: center;
+	color: var(--muted);
+	padding-bottom: 40px;
+}
+
+/* Mobile layout */
+@media (max-width: 800px) {
+	.hero h1 {
+		white-space: normal;
+	}
+
+	.timeline::before {
+		left: 18px;
+	}
+
+	.timeline-item {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	.timeline-dot {
+		left: 18px;
+		top: 28px;
+		transform: translate(-50%, -50%);
+	}
+
+	.timeline-card {
+		width: calc(100% - 42px);
+		max-width: none;
+		margin-left: 36px;
+	}
+}
